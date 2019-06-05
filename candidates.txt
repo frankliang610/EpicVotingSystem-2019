@@ -1,0 +1,7 @@
+1,Simon Lee,8
+2,Joe Burns,4
+3,Jim Young,2
+4,Sue Smith,2
+5,Mike Jones,5
+6,Ryder Cruz,0
+7,Karol Piper,0
