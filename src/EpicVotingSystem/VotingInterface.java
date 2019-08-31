@@ -13,8 +13,9 @@ import java.time.format.DateTimeParseException;
 
 
 /**
-* File Name : VotingInterface
-* author : Frank Liang
+* File Name: VotingInterface
+* Student ID: 21801886
+* author: Feng Liang
 * Date :
 * Description :
 */
@@ -50,7 +51,7 @@ public class VotingInterface
 		 vi.start();
 	}
 	
-	// Commence session  *************************************************
+	// Commence session  **********************************************
 	
 	//This methods is complete and does not require change.
 	public void start()
@@ -59,8 +60,16 @@ public class VotingInterface
 		 commenceVoting();
 	}
 	
+	//===============================================================
 	public void commenceVoting()
 	{
+	
+	// Assignment 2 Note :
+	// Use this method to display menu to vote or login as admin.
+	// get user input by using getInput() methods.
+	// call  manageVote() or validateAdmin() then manageAdmin()  
+	// based on user input
+	 	
 		boolean isValidInput = false;
 	
 		//  administratorsInfo();
@@ -91,8 +100,8 @@ public class VotingInterface
 				int inputNum = Integer.parseInt(inputNumString);
 				
 				if (inputNum == 1) {
-		    		
-		    		timeRangeCheck(); 
+					
+					timeRangeCheck(); 
 		    		
 		    	} else if (inputNum == 2) {
 		    		
@@ -120,7 +129,7 @@ public class VotingInterface
 	
 	}
 	
-	// *******************************************************************
+	// ******************************************************************
 	
 	
 	// Admin session *****************************************************	
@@ -177,7 +186,8 @@ public class VotingInterface
 			    		else if(input.equalsIgnoreCase("Stop")) {
 			    			 adminQuit = true;
 			                 systemQuit = true;
-			                 System.out.println("Voting System Closed");
+			                 System.out.println("Voting System Closed!");
+			                 return systemQuit; 
 			    		}
 			    		else {
 			    			System.out.println("Invalid input, the system will go back to the previous menu.\n");
@@ -204,9 +214,10 @@ public class VotingInterface
 			    
 			    else if(input.equalsIgnoreCase("Stop")){
 			        //stop system
-			        adminQuit = true;
+			        System.out.println("Voting System Closed!");
+			    	adminQuit = true;
 			        systemQuit = true;
-			        System.out.println("Voting System Closed");
+			        
 			    }
 			    else{
 			        System.out.println("Invalid input, please try again: \n");
@@ -244,7 +255,7 @@ public class VotingInterface
 					 
 					 System.out.println("The user name does NOT exist, please try again: ");
 					 adminLogin();
-					 return;
+					 
 				 }
 				 
 				
@@ -252,26 +263,32 @@ public class VotingInterface
 				 System.out.println("Please enter your password: "); 
 				 inputPassword = getInput();
 				 
-				 boolean userNameCheck = validateAdmin(userName, inputUserName);
 				 boolean userPasswordCheack = validateAdmin(userPassword, inputPassword);
 				 
-				 if (userNameCheck == true && userPasswordCheack == true ) {
+				 if (userPasswordCheack ) {
 					 
 					 loginQuit = true;
 					 manageAdmin();
 					 
-				 } else if ( countLogin > 2) {
+				 } else  {
 					 
-					 loginQuit = true;
-					 commenceVoting();
-					 
-				 } else {
-					 System.out.println("Invalid username or password.");
-				 }
+					 if( countLogin <= 2) {
+						 
+						 System.out.println("Incorrect password."
+						 			+ "\nYou have to input from user name.");
+						 breakingLineFour();
+						 
+					 } else {
+						 
+//						 loginQuit = true;
+						 System.out.println("You have input invalid password too many times."
+						 		+ "\nSystem has been stopped.");
+						 return;
+					}
+					
+				 }  
 				 
-			 
-			 
-		 }	 
+		    }	 
 	}
 	
 		// validates administrator username & password. This method is complete and does not require additional code. 
@@ -550,21 +567,39 @@ public class VotingInterface
 	
 	// Staff session ****************************************************
 	
+	//==============================================================
 	// add mangeVote method to enable staff to 
 	// login and perform voting.
 	public void manageVote()
 	{
+	
+	 // Assignment 2 Note :
+	 // Use this method to enable staff to login.
+	
+	 // you can identify staff from arraylist by using
+	 // getStaff() as shown below
+	 // theStaff = vc.getStaff(Integer.parseInt(getInput()));
+	
+	 // After a user login with a valid ID
+	 // call getStaffVote() if user has not voted , otherwise display
+	 // a message to inform the user that they can't vote again.
+	
+	 // get user input by using getInput() methods.
+	 // call  manageVote() or validateAdmin() then manageAdmin()
+	 // based on user input
+	
 		boolean voteQuit = false;
 		int count = 0;
-	
+		
 		while (!voteQuit) {
-			count++;
+			
 			System.out.println("Please enter your voter ID or enter \"Q\" to go back.\nTo end this voting please enter \"Stop\": ");
 			String input = getInput();
+			count++;
 			
 			if( count > 2) {
 				voteQuit = true;
-				System.out.println("You have entered invalid ID too many times");
+				System.out.println("You have entered invalid ID too many times.");
 				commenceVoting();
 				
 			} else if (isNumeric(input) == true) {
@@ -593,8 +628,8 @@ public class VotingInterface
 					
 				} catch (NullPointerException e) {
 					
-					System.out.println("The entered ID is not found, please try again: ");
-					input = getInput();
+					System.out.println("The entered ID is not found, please try again!");
+					
 				}
 				
 				
@@ -614,7 +649,7 @@ public class VotingInterface
 					
 				} else {
 					
-					System.out.println("Invalid input, please re-enter : \n\n");
+					System.out.println("Invalid input, please try again.");
 				
 				}
 			
@@ -634,31 +669,33 @@ public class VotingInterface
 		 int countPasswordEnter = 0;
 		 
 		 String thePassword = theStaff.getPassword();
-		 System.out.println("Please enter your staff password. \nOr enter \"Q\" to go back main screen: ");
 		 
+		 System.out.println("Please enter your staff password: ");
 		 String input = getInput();
 		 
-		 while(!input.equals(thePassword)) {
+		 boolean isValidPassword = input.equals(thePassword);
+
+
+		 while(!isValidPassword) {
 			 
 			 countPasswordEnter++;
 			 
-			 if(input.equalsIgnoreCase("Q")) {
+			 if(countPasswordEnter > 2) {
 				 
-				 commenceVoting();
-				 
-			 } else if(countPasswordEnter > 2) {
-				 
-				 System.out.println("You have entered invalid password too many times. \nNow the system is going back to the main screen.");
+				 isValidPassword = false;
+				 System.out.println("You have entered invalid password too many times. "
+				 				+ "\nNow the system goes back to previous session.");
 				 breakingLineFour();
-				 commenceVoting();
+				 return;
+
 				 
 			 } else {
 				 
-				 System.out.println("Invalid password, please try again!!");
+				 System.out.println("Invalid password, please try again!");
+				 input = getInput();
 				 
 			 }
 			 
-			 input = getInput();
 		 }
 		 
 		 breakingLineFour();
@@ -666,6 +703,7 @@ public class VotingInterface
 	 
 	}
 	
+	//==============================================================
 	// add displayVotingScreen method to show the
 	// welcome message when the staff logged in successfully. New addition
 	public void displayVotingScreen()
@@ -683,10 +721,16 @@ public class VotingInterface
 		 breakingLineTwo();
 		 
 	}
-	  
+	  //==============================================================
+	
+	//============================================================= 
 	//manages a staff vote. New modification
 	private void getStaffVote() 
 	{
+		 // Assignment 2 Note :
+		 // Use this methods to  capture and confirm a vote for staff
+		 // then display candidate names and instructions on how to place a vote.	
+		 
 		 int candidateCode;
 		 boolean quitStaffVote = false;
 		 
@@ -723,16 +767,16 @@ public class VotingInterface
 	      						displayVotingScreen();
 	      						
 	      					} else {
-	      						
-	      						System.out.println("Invalid input, please try again!"); // need to add more code below.
-	      						
+	      						quitStaffVote = true;
+	      						System.out.println("Invalid input, please try again!"); 
+	      						input = getInput();
 	      					}
 	      					
 	      					
 	      				} else {
-	      					
-	      					System.out.println("Invalid input, please re-enter : \n\n");
-	      					
+	      					quitStaffVote = true;
+	      					System.out.println("Input must be the letter \"Y\" or \"C\", please re-enter : \n");
+	      					input = getInput();
 	      				}
 					
 					
@@ -747,19 +791,22 @@ public class VotingInterface
 				 
 			 } else {
 				
-				if(input.equalsIgnoreCase("C")) {
+				if(input.equalsIgnoreCase("Q")) {
 	   			
 					quitStaffVote = true;
-	   				commenceVoting();
+					commenceVoting();
 	   			
 	   			} else {
-	   			
-	   				System.out.println("Can NOT understand your input, please re-enter : \n\n");
+	   				
+	   				quitStaffVote = true;
+	   				System.out.println("Invalid input, please input a valid candidate code.\n");
 	   		
 	   			}
 			}  
 		 }   	 
 	}
+	
+	//=============================================================
 	
 	//add staffsInfo method to display all the staff data. (New addition)
 	public void staffsInfo() {
@@ -848,7 +895,7 @@ public class VotingInterface
 		 			+ "\nTo delete an existing staff member, please enter \"D\"."
 		 			+ "\nTo go back to previous menu, please enter \"Q\"." 
 		 			+ "\nTo end the system, please enter \"Stop\".");
-		String input = getInput(); // add exception 
+		String input = getInput();  
 	
 		while(!isValidInput) {
 			 
@@ -1050,15 +1097,14 @@ public class VotingInterface
 							}
 							 else {
 								 System.out.println("The entered letter is invalid, please try again: ");
-								 deleteStaffMember();
+								 input = getInput();
 							 }
 									 
 						 }
 						 
 			 	}catch(NullPointerException e) {
-
 					System.out.println("The entered ID is not found, please try again: ");
-					deleteStaffMember();
+					input = getInput();
 				 }
 			 }
 		 }
@@ -1068,10 +1114,14 @@ public class VotingInterface
 	
 	// Candidate session ************************************************
 	
+	// =============================================================
 	// prints out the voting results after a successful 
 	// admin login. New modification
 	public void printVoteResults()
 	{
+	 // Assignment 2 Note :
+	 // Use this methods to  display voting statistics & results of votes  after 
+	 // a successful admin login the call manageAdmin() method to determine what to do next.
 		 int totalVoters = vc.getTotalVoters(); // 
 		 int candidateVotes = 0 ; // 
 		 double totalVoted = 0;
@@ -1082,11 +1132,9 @@ public class VotingInterface
 		 
 		 Iterator<Candidate> it = candidates.iterator();
 		 while(it.hasNext()) {
-
 			 theCandidate = (Candidate) it.next();
 			 candidateVotes = theCandidate.getVotes();
 			 totalVoted += candidateVotes;
-
 		 }
 	 
 		 System.out.println("\n\t   STAFF REPRESENTATIVE VOTING STATISTICS");
@@ -1100,18 +1148,17 @@ public class VotingInterface
 		 
 		 it = candidates.iterator();
 		 while(it.hasNext()) {
-
 			 theCandidate = (Candidate)it.next();
 			 candidateVotes = theCandidate.getVotes();
 			 System.out.println("\t Candidate" + " " + theCandidate.getCandidateCode() + ": "
 			 					+ "\t\t  " + theCandidate.getVotes() 
 					 			+ "\t (" + (df.format((candidateVotes/totalVoted)*100)) + "%)");
-		 
 		 }
 	 
 	 	breakingLineThree();
 	
 	}
+	//==============================================================
 	
 	//add candidatesInfo method to display all the candidate data. (New addition)
 	public void candidatesInfo() {
@@ -1131,8 +1178,7 @@ public class VotingInterface
 			 System.out.println("\t" +  theCandidate.getCandidateCode() 
 			 					+ "\t\t" + theCandidate.getName());
 			 setNumberOfCandidate(getNumberOfCandidate() + 1);
-
-	 	}
+	 }
 	 
 		 System.out.println();
 		 System.out.println("--------------------------------------");
@@ -1189,6 +1235,7 @@ public class VotingInterface
 					}
 				 }
 			}
+	 
 	}
 	
 	// add addCandidateMember method to add a new member 
@@ -1213,24 +1260,19 @@ public class VotingInterface
 			 
 			 theCandidate = vc.getCandidate(Integer.parseInt(input));
 				 if(vc.getCandidate(Integer.parseInt(input)) != null) {
-
 					 isValidID = false;
 					 System.out.println("\nThe entered ID has already existed, please try a new one: ");
 					 addCandidateMember();
 					 
 				 } else {
-
 					 isValidID = true;
 					 System.out.println("The entered ID is valid, please continue.");
-				 
 				 }
 			 
 			 } else {
-
 				 isValidID = true;
 				 System.out.println("Candidate member ID must be a number, please try again!");
 				 addCandidateMember();
-
 			 }
 		 }
 		 
@@ -1263,7 +1305,7 @@ public class VotingInterface
 				 		  + "\nTo go back to previous menu, please enter \"Q\"."
 				 		  + "\nTo quit the system, please enter \"Stop\".");
 		 
-		 input = getInput(); 
+		 input = getInput(); // throws exception
 		 
 		 if (input.equalsIgnoreCase("A")) {
 			 addCandidateMember();
@@ -1273,6 +1315,7 @@ public class VotingInterface
 		 }
 		 else if(input.equalsIgnoreCase("Stop")) {
 			 System.out.println("System has been stopped.");
+			 return;
 		 }
 		 else {
 			 System.out.println("Invalid input, please try again: ");
@@ -1342,6 +1385,7 @@ public class VotingInterface
 									 }
 									 else if(input.equalsIgnoreCase("Stop")) {
 										 System.out.println("The system has been stopped.");
+										 return;
 									 }
 									 else {
 										 System.out.println("Invalid input, please try again: ");
@@ -1443,7 +1487,7 @@ public class VotingInterface
 		 
 			System.out.println("Please enter a start date of voting (i.e. 20/10/2019): "
 	 					+ "\nNote: The interval days between start date and end date is SEVEN days.");
-			startTimeString = getInput(); // NPE error, check it out 2019/05/31 1725
+			startTimeString = getInput(); 
 			System.out.println("The start day of voting has been set: " + startTimeString);
 			startTime = LocalDate.parse(startTimeString, dtf);
 			 
@@ -1468,7 +1512,7 @@ public class VotingInterface
 			
 			LocalDate currentDate = LocalDate.now(); // setup today's date
 			String currentDateString = dtf.format(currentDate); // convert it to a string.
-			System.out.println("Today's date is: " + currentDateString);
+			System.out.println("Today is: " + currentDateString);
 			
 			boolean isStartDate = currentDate.isAfter(startTime);
 			boolean isEndDate = currentDate.isBefore(endTime);
@@ -1478,7 +1522,7 @@ public class VotingInterface
 				manageVote();
 			}
 			else if (!isStartDate && isEndDate) {
-				System.out.println("The voting date is coming soon...");
+				System.out.println("The voting date is coming soon, please wait patiently.");
 			}
 			else if(isStartDate && !isEndDate) {
 				System.out.println("The voting season has ended, thank you for your concern. See you next time.");

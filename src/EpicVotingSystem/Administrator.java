@@ -1,8 +1,9 @@
 package EpicVotingSystem;
 /**
- * File Name : Administrator
- * author : Frank Liang
- * Date : 
+ * File Name: Administrator
+ * Student ID: 21801886
+ * author: Feng Liang
+ * Date :
  * Description :
  */
 public class Administrator {

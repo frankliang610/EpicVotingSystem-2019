@@ -1,11 +1,12 @@
 /**
- * 
- * 
+ * Note: This class is complete. Don't change code in this class,
+ * unless you want to add more functionality  for Staff object
  */
 package EpicVotingSystem;
 /**
  * File Name : Staff
- * author : Frank Liang
+ * Student ID: 21801886
+ * author: Feng Liang
  * Date :
  * Description :
  */

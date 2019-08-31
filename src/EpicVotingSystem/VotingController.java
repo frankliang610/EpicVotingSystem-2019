@@ -4,23 +4,20 @@
 package EpicVotingSystem;
 /**
  * File Name : VotingController
- * author : Frank Liang
- * Date :
- * Description :
+ * Student ID: 21801886
+ * author: Feng Liang
+ * Date:
+ * Description:
  */
+
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class VotingController
 {
-    //Create an Arraylist read & store staff & candidate data from file
+    //Create an ArrayList read & store staff & candidate data from file
     private ArrayList<Staff> staffs = new ArrayList<Staff>();
     private ArrayList<Candidate> candidates = new ArrayList<Candidate>();
     
@@ -200,7 +197,9 @@ public class VotingController
     // add saveCandidateDate() method to write candidates date back to file. New addition.
     public void saveCandidateData()
     {
-       
+        // Assignment 2 Note : use this method to write data back to candidate text file
+        // Write the code for this method by using saveStaffData() as sample syntax
+    	
     	try {
     		BufferedWriter writer = new BufferedWriter(new FileWriter("candidates.txt"));
     		Iterator<Candidate> it = candidates.iterator();
@@ -228,7 +227,6 @@ public class VotingController
     		BufferedWriter writer = new BufferedWriter(new FileWriter("Admin.txt"));
     		Iterator<Administrator> it = administrators.iterator();
     		String administratorDetails;
-            
     		while(it.hasNext()) {
     			theAdministrator = (Administrator) it.next();
     			administratorDetails = theAdministrator.getID() + "," + theAdministrator.getName()
@@ -322,7 +320,7 @@ public class VotingController
     	
     	LocalDateTime votedDateTime = LocalDateTime.now();
     	
-    	String formatString = "dd/MM/yyyy HH:mm:ss a";
+    	String formatString = "dd/MM/yyyy HH:mm:ss";
     	DateTimeFormatter dtf = DateTimeFormatter.ofPattern(formatString);
     	   	
     	String votedDateTimeToString = votedDateTime.format(dtf);

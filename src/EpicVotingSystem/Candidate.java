@@ -1,14 +1,15 @@
 /**
- * 
- * 
+ * Note: This class is complete. Don't change code in this class,
+ * unless you want to add more functionality  for Candidate object
  */
 
 package EpicVotingSystem;
 /**
- * File Name : Candidate
- * author : Frank Liang
- * Date :
- * Description :
+ * File Name: Candidate
+ * Student ID: 21801886
+ * author: Feng Liang
+ * Date:
+ * Description:
  */
 public class Candidate
 {
